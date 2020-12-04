@@ -1,0 +1,47 @@
+.blur {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+  
+  .card-title-blured-bg {
+   color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 0;
+    width: -webkit-fill-available;
+    height: 50%;
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(5px);  
+  }
+  
+  .card-title-text-shadow{text-shadow: 1px 1px 0 #000,
+      -1px 1px 0 #000,
+      1px -1px 0 #000,
+      -1px -1px 0 #000,
+      0px 1px 0 #000,
+      0px -1px 0 #000,
+      -1px 0px 0 #000,
+      1px 0px 0 #000,
+      1px 1px 0 #000,
+      -1px 1px 0 #000,
+      1px -1px 0 #000,
+      -1px -1px 0 #000,
+      0px 1px 0 #000,
+      0px -1px 0 #000,
+      -1px 0px 0 #000,
+      1px 0px 0 #000,
+      1px 1px 0 #000,
+      -1px 1px 0 #000,
+      1px -1px 0 #000,
+      -1px -1px 0 #000,
+      1px 1px 0 #000,
+      -1px 1px 0 #000,
+      1px -1px 0 #000,
+      -1px -1px 0 #000;
+  }
+  
+  
