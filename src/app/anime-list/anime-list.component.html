@@ -3,7 +3,15 @@
         Anime List
     </h1>
 
-    <div *ngFor="let anime of animes">
-        <app-anime-card></app-anime-card>
+    <div *ngIf="animes==null">
+        <div class="loader">Loading...</div>
+    </div>
+
+    <div class="anime-list"
+         *ngIf="animes!=null">
+
+        <div *ngFor="let anime of animes">
+            <app-anime-card [anime]="anime"></app-anime-card>
+        </div>
     </div>
 </div>

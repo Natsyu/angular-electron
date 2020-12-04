@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Anime } from '../../classes/anime';
-// import { si, pantsu } from 'nyaapi';
+import { si } from 'nyaapi';
 import { Dictionary } from '../../classes/dictionary';
 import { NyaaResponse } from '../../classes/nyaa-response';
 import { AnimeListService } from './anime-list.service';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
     providedIn: 'root'
@@ -11,15 +13,16 @@ import { AnimeListService } from './anime-list.service';
 export class NyaaService {
 
     private animesDictionary: Dictionary<string[]>;
+    private imageApiUrl = 'https://kitsu.io/api/edge/anime?filter[text]=';
 
-    animeTorrents :Anime[];
 
-    constructor(private animeListService: AnimeListService) {
+    animeTorrents: Anime[];
+
+    constructor(private animeListService: AnimeListService, private http: HttpClient) {
         this.animesDictionary = animeListService.getCurrentAnimes();
         this.animeTorrents = [];
-        this.getAnimesTorrentData();
     }
-    
+
     delay(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -28,29 +31,37 @@ export class NyaaService {
         return name.replace('1080', '').replace(/^\D+/g, '').substr(0, 3).trim();
     }
 
-    // async search(submiter: string, animeTitle: string): Promise<number> {
+    async search(submiter: string, animeTitle: string): Promise<any> {
 
-    //     let result = await si.searchByUser(submiter, animeTitle, 1);
-    //     let nya = (((result as []).shift()) as NyaaResponse);
+        let result = await si.searchByUser(submiter, animeTitle, 1);
+        let nya = (((result as []).shift()) as NyaaResponse);
 
-    //     let epNumber = this.getEpisodeNumber(nya.name)
+        let epNumber = this.getEpisodeNumber(nya.name)
 
-    //     let anime = new Anime(nya.name, epNumber, nya.magnet);
-    //     this.animeTorrents.push(anime)
-    //     return 0
-    // }
+        this.http.get<string>(`${this.imageApiUrl + animeTitle}`).subscribe(response => {
+            let img = response["data"][0]["attributes"]["posterImage"]["medium"]
+            let anime = new Anime(animeTitle, epNumber, nya.magnet, img);
+            anime.name = this.trimName(anime.name);
+            this.animeTorrents.push(anime)
+            this.animeTorrents.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+            return 0
+        })
 
-    
+    }
+
+    private trimName(name: string): string {
+        return name.replace('1080', '');
+    }
     async getAnimesTorrentData(): Promise<void> {
         this.animeTorrents = [];
 
         for (let submiter of this.animesDictionary.Keys()) {
             for (let animeTitle of this.animesDictionary.Item(submiter)) {
-                // await this.search(submiter, animeTitle);
+                await this.search(submiter, animeTitle);
             }
         }
     }
-    animeList():Anime[]{
+    animeList(): Anime[] {
         return this.animeTorrents;
     }
 }

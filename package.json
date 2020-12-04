@@ -40,7 +40,11 @@
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "lint": "ng lint"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@types/nyaapi": "2.3.0",
+    "ngx-electron": "2.2.0",
+    "nyaapi": "2.3.3"
+  },
   "devDependencies": {
     "@angular-builders/custom-webpack": "10.0.1",
     "@angular-devkit/build-angular": "0.1100.2",

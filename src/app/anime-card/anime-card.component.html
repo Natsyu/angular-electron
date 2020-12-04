@@ -1,18 +1,25 @@
-<div class="container">
-    <div class="card grey darken-4">
-        <!-- <div class="card-image">
-        <img src="{{details.header_image}}">
+<!-- <div class="card"
+     *ngIf="anime!=null">
+    <h5 class="card-title">{{anime.name}}</h5>
+    <p class="card-text">{{anime.episode}}</p>
+    <img class="card-img-top"
+         src="{{anime.image}}"
+         alt="Card image cap">
+    <div class="card-body">
+        <a routerLink="{{anime.magnet}}">Magnet</a>
 
-        <div class="card-title-blured-bg"></div>
-        <div class="card-title p-1 m-2 card-title-text-shadow">{{details.name}}</div>
-        <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-    </div> -->
-        <div class="card-content">
-            <h2> {{anime.name}}</h2>
-            <p> {{anime.episode}}</p>
-            <a routerLink="{{anime.magnet}}">Magnet</a>
-            <!-- <p class="green-text">{{details.discount_percent}}%</p>
-        <p> {{ details.original_price | currency: details.currency :'symbol-narrow':undefined:'pl-PL' }}</p> -->
-        </div>
     </div>
+</div> -->
+
+
+<div class="container">
+    <img src="{{anime.image}}">
+    <div class="blur"></div>
+    <div class="bottom-left">{{anime.episode}}</div>
+    <div class="top-left">{{anime.name}}</div>
+
+    <div class="bottom-right">
+        <a [href]="anime.magnet | safeLink">Magnet</a>
+    </div>
+
 </div>

@@ -17,6 +17,7 @@ import { DetailModule } from './detail/detail.module';
 import { AppComponent } from './app.component';
 import { AnimeCardComponent } from './anime-card/anime-card.component';
 import { AnimeListComponent } from './anime-list/anime-list.component';
+import { SafeLinkPipe } from './safe-link.pipe';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, AnimeCardComponent, AnimeListComponent],
+  declarations: [AppComponent, AnimeCardComponent, AnimeListComponent, SafeLinkPipe],
   imports: [
     BrowserModule,
     FormsModule,

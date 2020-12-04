@@ -9,13 +9,17 @@ import { NyaaService } from '../services/nyaa.service'
 })
 export class AnimeListComponent implements OnInit {
 
-    animes:Anime[];
-    constructor(private nyaaService: NyaaService) { 
-        
+    animes: Anime[];
+    constructor(private nyaaService: NyaaService) {
+
     }
 
     ngOnInit(): void {
-        this.animes = this.nyaaService.animeList();
+
+        this.nyaaService.getAnimesTorrentData().then(x => {
+            this.animes = this.nyaaService.animeList();
+        });
+
     }
 
 }

@@ -1,10 +1,13 @@
+$max-image-width: 200px;
+$text-background-color: #00000087;
+
 .blur {
     filter: blur(8px);
     -webkit-filter: blur(8px);
-  }
-  
-  .card-title-blured-bg {
-   color: white;
+}
+
+.card-title-blured-bg {
+    color: white;
     font-weight: bold;
     position: absolute;
     top: 75%;
@@ -14,34 +17,68 @@
     z-index: 0;
     width: -webkit-fill-available;
     height: 50%;
-    background-color: rgba(255, 255, 255, .15);  
-    backdrop-filter: blur(5px);  
-  }
-  
-  .card-title-text-shadow{text-shadow: 1px 1px 0 #000,
-      -1px 1px 0 #000,
-      1px -1px 0 #000,
-      -1px -1px 0 #000,
-      0px 1px 0 #000,
-      0px -1px 0 #000,
-      -1px 0px 0 #000,
-      1px 0px 0 #000,
-      1px 1px 0 #000,
-      -1px 1px 0 #000,
-      1px -1px 0 #000,
-      -1px -1px 0 #000,
-      0px 1px 0 #000,
-      0px -1px 0 #000,
-      -1px 0px 0 #000,
-      1px 0px 0 #000,
-      1px 1px 0 #000,
-      -1px 1px 0 #000,
-      1px -1px 0 #000,
-      -1px -1px 0 #000,
-      1px 1px 0 #000,
-      -1px 1px 0 #000,
-      1px -1px 0 #000,
-      -1px -1px 0 #000;
-  }
-  
-  
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+.card {
+    padding-left: 15px;
+    padding-right: 15px;
+    max-width: 250px;
+}
+
+.card-title {
+    word-wrap: break-word;
+}
+.card-title,
+.card-text {
+    color: white;
+}
+img {
+    width: $max-image-width;
+}
+.card-title-text-shadow {
+    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000, 0px 1px 0 #000, 0px -1px 0 #000,
+        -1px 0px 0 #000, 1px 0px 0 #000, 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000,
+        0px 1px 0 #000, 0px -1px 0 #000, -1px 0px 0 #000, 1px 0px 0 #000, 1px 1px 0 #000, -1px 1px 0 #000,
+        1px -1px 0 #000, -1px -1px 0 #000, 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+}
+
+/* Container holding the image and the text */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+    padding: 15px;
+    max-width: 250px;
+}
+
+/* Bottom left text */
+.bottom-left {
+    position: absolute;
+    bottom: 36px;
+    left: 25px;
+    background-color: $text-background-color;
+}
+
+/* Top left text */
+.top-left {
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    text-align: left;
+    background-color: $text-background-color;
+    max-width: $max-image-width;
+}
+
+/* Bottom right text */
+.bottom-right {
+    position: absolute;
+    bottom: 30px;
+    right: 15px;
+}
+
+.container a {
+    padding: 10px;
+    border-radius: none;
+}

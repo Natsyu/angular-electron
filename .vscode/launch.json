@@ -6,9 +6,9 @@
     "configurations": [
         {
             "name": "Electron Main Renderer",
-            "type": "node",
+            "type": "pwa-node",
             "request": "launch",
-            "protocol": "inspector",
+            // "protocol": "inspector",
             // Prelaunch task compiles main.ts for Electron & starts Angular dev server.
             "preLaunchTask": "Build.All",
             "cwd": "${workspaceFolder}",
@@ -20,7 +20,13 @@
             ],
             "windows": {
                 "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
-            }
+            },
+            "sourceMaps": true,
+            "skipFiles": ["<node_internals>/**"],
+            "resolveSourceMapLocations": [
+                "${workspaceFolder}/**",
+                "!**/node_modules/**"
+              ]
         }, {
             "name": "Karma Attach Chrome",
             "type": "chrome",

@@ -13,9 +13,9 @@ module.exports = (config, options) => {
             }
 
             let fileReplacementParts = fileReplacement['with'].split('.');
-            if (fileReplacementParts.length > 1 && ['web'].indexOf(fileReplacementParts[1]) >= 0) {
-                config.target = 'web';
-            }
+            // if (fileReplacementParts.length > 1 && ['web'].indexOf(fileReplacementParts[1]) >= 0) {
+            //     config.target = 'web';
+            // }
             break;
         }
     }
