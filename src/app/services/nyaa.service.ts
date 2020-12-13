@@ -5,6 +5,7 @@ import { Dictionary } from '../../classes/dictionary';
 import { NyaaResponse } from '../../classes/nyaa-response';
 import { AnimeListService } from './anime-list.service';
 import { HttpClient } from '@angular/common/http';
+import Submission from '../../classes/submissions';
 
 
 @Injectable({
@@ -12,14 +13,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NyaaService {
 
-    private animesDictionary: Dictionary<string[]>;
+    private animeSubmissions: Submission[];
     private imageApiUrl = 'https://kitsu.io/api/edge/anime?filter[text]=';
 
 
     animeTorrents: Anime[];
 
     constructor(private animeListService: AnimeListService, private http: HttpClient) {
-        this.animesDictionary = animeListService.getCurrentAnimes();
+        this.animeSubmissions = animeListService.getCurrentAnimes();
         this.animeTorrents = [];
     }
 
@@ -55,9 +56,9 @@ export class NyaaService {
     async getAnimesTorrentData(): Promise<void> {
         this.animeTorrents = [];
 
-        for (let submiter of this.animesDictionary.Keys()) {
-            for (let animeTitle of this.animesDictionary.Item(submiter)) {
-                await this.search(submiter, animeTitle);
+        for (let submiter of this.animeSubmissions) {
+            for (let animeTitle of submiter.animes) {
+                await this.search(submiter.submitter, animeTitle);
             }
         }
     }

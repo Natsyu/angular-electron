@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Anime } from '../../classes/anime';
 import { Dictionary } from '../../classes/dictionary';
+import * as animeList from '../../../submissions.json';
+import Submission from '../../classes/submissions'
 
 @Injectable({
   providedIn: 'root'
@@ -8,22 +10,15 @@ import { Dictionary } from '../../classes/dictionary';
 export class AnimeListService {
 
   
-    animes: Dictionary<string[]>;
+    animes: Submission[];
     //animes: Anime[];
     constructor() {
-
-        this.animes = new Dictionary<string[]>();
         
-        this.animes.Add('Erai-raws', [
-            'Jujutsu Kaisen 1080',
-            'Black Clover 1080',
-            'Higurashi no Naku Koro ni Gou 1080',
-            'Enen no Shouboutai: Ni no Shou 1080',
-            'Dungeon ni Deai wo Motomeru no wa Machigatteiru Darou ka III 1080',
-            'Munou na Nana 1080']);
+        this.animes = Object.assign(new Array<Submission>(), animeList )['default'];
      }
 
-     getCurrentAnimes() :Dictionary<string[]>{
+     getCurrentAnimes() :Submission[]{
          return this.animes;
      }
+
 }
