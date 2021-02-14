@@ -6,6 +6,7 @@ import { NyaaResponse } from '../../classes/nyaa-response';
 import { AnimeListService } from './anime-list.service';
 import { HttpClient } from '@angular/common/http';
 import Submission from '../../classes/submissions';
+import { info } from 'console';
 
 
 @Injectable({
@@ -34,20 +35,31 @@ export class NyaaService {
 
     async search(submiter: string, animeTitle: string): Promise<any> {
 
+        console.info('Searching for ' + animeTitle + '\nUploaded by ' + submiter);
         let result = await si.searchByUser(submiter, animeTitle, 1);
         let nya = (((result as []).shift()) as NyaaResponse);
 
         let epNumber = this.getEpisodeNumber(nya.name)
+        let hitsuTitle = animeTitle.replace('1080', '');
 
-        this.http.get<string>(`${this.imageApiUrl + animeTitle}`).subscribe(response => {
-            let img = response["data"][0]["attributes"]["posterImage"]["medium"]
-            let anime = new Anime(animeTitle, epNumber, nya.magnet, img);
-            anime.name = this.trimName(anime.name);
-            this.animeTorrents.push(anime)
-            this.animeTorrents.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
-            return 0
-        })
-
+        try {
+            this.http.get<string>(this.imageApiUrl + hitsuTitle).subscribe(response => {
+                console.info('Poster of: ' + hitsuTitle);
+                let img = response["data"][0]["attributes"]["posterImage"]["medium"]
+                let anime = new Anime(animeTitle, epNumber, nya.magnet, img);
+                anime.name = this.trimName(anime.name);
+                this.animeTorrents.push(anime)
+                this.animeTorrents.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
+                return 0
+            },
+                async error => {
+                    console.error(error);
+                    await this.search(submiter, animeTitle);
+                })
+        }
+        catch (err) {
+            console.error(err)
+        }
     }
 
     private trimName(name: string): string {
